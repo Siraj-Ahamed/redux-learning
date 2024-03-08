@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import "./App.css";
 import AddTask from "./components/AddTask";
 import Navbar from "./components/Navbar";
+import TaskList from "./components/TaskList";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                     <AddTask />
                 </Col>
             </Row>
+            <TaskList />
         </Container>
     );
 }

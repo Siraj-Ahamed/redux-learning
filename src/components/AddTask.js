@@ -12,7 +12,8 @@ const AddTask = () => {
     }
 
     return (
-        <Form onSubmit={addTask}>
+       <section className="my-5">
+         <Form onSubmit={addTask}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Task</Form.Label>
                 <Form.Control type="text" placeholder="Enter Task Title" value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -29,6 +30,7 @@ const AddTask = () => {
                 </Button>
             </div>
         </Form>
+       </section>
     );
 };
 
