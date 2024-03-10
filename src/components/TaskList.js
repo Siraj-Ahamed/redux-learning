@@ -6,7 +6,7 @@ import MyVerticallyCenteredModal from "./UpdateTask";
 const TaskList = () => {
     function updateTask() {
         console.log("Updated Task");
-        setModalShow(true)
+        setModalShow(true);
     }
 
     function deleteTask() {
