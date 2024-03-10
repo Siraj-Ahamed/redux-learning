@@ -14,12 +14,13 @@ const taskSlices = createSlice({
         addTaskToList: (state, action) => {
             const id = Math.random() * 100;
             let task = { ...action.payload, id };
+            console.log('task', task);
             state.taskList.push(task);
         },
 
         removeTaskFromList: (state, action) => {
             state.taskList = state.taskList.filter(
-                (task) => task.id === action.payload.id
+                (task) => task.id !== action.payload.id
             );
         },
 

@@ -2,15 +2,23 @@ import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import MyVerticallyCenteredModal from "./UpdateTask";
+import { useSelector, useDispatch } from "react-redux";
+import { selectedTask, removeTaskFromList } from "../slices/taskSlices";
 
 const TaskList = () => {
-    function updateTask() {
-        console.log("Updated Task");
+    const { taskList } = useSelector((state) => state.tasks);
+
+    const dispatch = useDispatch();
+
+    function updateTask(task) {
         setModalShow(true);
+        console.log("selected taks: ", task);
+        dispatch(selectedTask(task));
     }
 
-    function deleteTask() {
-        console.log("Deleted Task");
+    function deleteTask(task) {
+        console.log("Deleted Task: ",task);
+        dispatch(removeTaskFromList(task))
     }
 
     const [modalShow, setModalShow] = useState(false);
@@ -27,27 +35,32 @@ const TaskList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="text-center">
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>
-                            <Button
-                                className="mx-3"
-                                variant="primary"
-                                onClick={() => updateTask()}
-                            >
-                                <i className="bi bi-pencil-square"></i>
-                            </Button>
-                            <Button
-                                className="mx-3"
-                                variant="primary"
-                                onClick={() => deleteTask()}
-                            >
-                                <i className="bi bi-trash"></i>
-                            </Button>
-                        </td>
-                    </tr>
+                    {taskList &&
+                        taskList.map((task, index) => {
+                            return (
+                                <tr className="text-center" key={task.id}>
+                                    <td>{index + 1}</td>
+                                    <td>{task.title}</td>
+                                    <td>{task.description}</td>
+                                    <td>
+                                        <Button
+                                            className="mx-3"
+                                            variant="primary"
+                                            onClick={() => updateTask(task)}
+                                        >
+                                            <i className="bi bi-pencil-square"></i>
+                                        </Button>
+                                        <Button
+                                            className="mx-3"
+                                            variant="primary"
+                                            onClick={() => deleteTask(task)}
+                                        >
+                                            <i className="bi bi-trash"></i>
+                                        </Button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                 </tbody>
             </Table>
 
