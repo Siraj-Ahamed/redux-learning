@@ -3,7 +3,8 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import MyVerticallyCenteredModal from "./UpdateTask";
 import { useSelector, useDispatch } from "react-redux";
-import { selectedTask, removeTaskFromList } from "../slices/taskSlices";
+import { selectedTask } from "../slices/taskSlices";
+import DeleteTask from "./DeleteTask";
 
 const TaskList = () => {
     const { taskList } = useSelector((state) => state.tasks);
@@ -11,17 +12,20 @@ const TaskList = () => {
     const dispatch = useDispatch();
 
     function updateTask(task) {
-        setModalShow(true);
+        setUpdateModalShow(true);
         console.log("selected taks: ", task);
         dispatch(selectedTask(task));
     }
 
     function deleteTask(task) {
+        setDeleteModalShow(true);
         console.log("Deleted Task: ",task);
-        dispatch(removeTaskFromList(task))
+        dispatch(selectedTask(task));
+        // dispatch(removeTaskFromList(task))
     }
 
-    const [modalShow, setModalShow] = useState(false);
+    const [updateModalShow, setUpdateModalShow] = useState(false);
+    const [deleteModalShow, setDeleteModalShow] = useState(false);
 
     return (
         <>
@@ -65,8 +69,13 @@ const TaskList = () => {
             </Table>
 
             <MyVerticallyCenteredModal
-                show={modalShow}
-                onHide={() => setModalShow(false)}
+                show={updateModalShow}
+                onHide={() => setUpdateModalShow(false)}
+            />
+
+            <DeleteTask 
+                 show={deleteModalShow}
+                 onHide={() => setDeleteModalShow(false)}
             />
         </>
     );
